@@ -1,0 +1,57 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      JSA Note
+    </ion-title>
+
+    <ion-buttons end>
+      <button navPush="AddNotePage" ion-button>
+        <ion-icon name="add"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-list  *ngIf= "finalizar">
+      <h1>Has finalizado el test</h1>
+        El numero de preguntas acertadas es: {{numcorrectas}}
+  </ion-list>
+
+  <ion-list  *ngIf= "!finalizar">
+    <ion-list-header >
+      Pregunta
+    </ion-list-header>
+      
+    <ion-list *ngFor="let note of noteList | async | slice:cont:cont2" >
+
+      
+        <div><h1>{{note.pregunta}}</h1></div>
+      <ion-list radio-group [(ngModel)]="respuesta" >
+        <ion-item>
+          <ion-label>{{note.respuesta1}}</ion-label>
+          <ion-radio value={{note.respuesta1}} checked (ionSelect)="mcqAnswer(note.pregunta,note.respuesta1)"></ion-radio>
+        </ion-item>
+        <ion-item>
+          <ion-label>{{note.respuesta2}}</ion-label>
+          <ion-radio value={{note.respuesta2}} checked (ionSelect)="mcqAnswer(note.pregunta,note.respuesta2)"></ion-radio>
+        </ion-item>
+        <ion-item>
+          <ion-label>{{note.respuesta3}}</ion-label>
+          <ion-radio value={{note.respuesta3}} checked (ionSelect)="mcqAnswer(note.pregunta,note.respuesta3)"></ion-radio>
+        </ion-item>
+        <ion-item>
+          <ion-label>{{note.respuesta4}}</ion-label>
+          <ion-radio value={{note.respuesta4}} checked (ionSelect)="mcqAnswer(note.pregunta,note.respuesta4)"></ion-radio>
+        </ion-item>
+      </ion-list>
+
+      <button (click)='enviar(note.correcta);' ion-button>
+        Siguiente
+      </button>
+
+    </ion-list>
+
+  </ion-list>
+</ion-content>
+<!--detail-push navPush="EditNotePage" [navParams]="{note:note}"  -->
